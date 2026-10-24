@@ -26,6 +26,6 @@ $('#show').onclick = () => { $('#line').textContent = lineOf(cur); };
 $('#give').onclick = () => {
   sfx.good(); burst();
   opened[cur] = turn; $('#qv').classList.add('hidden');
-  if (opened.every((o) => o !== null)) { draw(); showFinish('Show me your posters!'); } else { nextTurn(); draw(); }
+  if (opened.every((o) => o !== null)) { draw(); showFinish('Great job!'); } else { nextTurn(); draw(); }
 };
 draw();
