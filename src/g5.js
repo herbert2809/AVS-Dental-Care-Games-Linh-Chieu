@@ -13,7 +13,7 @@ function draw() {
   $('#teeth').innerHTML = keys.map((k, i) => (opened[i] === null
     ? `<button class="lucky ${i === 0 ? 'teach' : ''}" data-i="${i}" aria-label="Tooth ${i === 0 ? 'T' : i}" ${(turn < 0) !== (i === 0) ? 'disabled' : ''}><svg class="art" viewBox="0 0 200 200">${toothShape(TINT[i])}</svg><span class="num">${i === 0 ? 'T' : i}</span></button>`
     : `<div class="lucky open"><svg class="art" viewBox="0 0 200 200">${toothShape('#FFFFFF')}</svg><span class="in">${art(k)}</span>
-       <span class="turn tag" style="--c:${who(opened[i]).color}">${who(opened[i]).name}</span></div>`)).join('');
+       ${opened[i] < 0 ? '<span class="turn tag" style="--c:var(--ink)">Teacher</span>' : ''}</div>`)).join('');
 }
 $('#teeth').addEventListener('click', (e) => {
   const b = e.target.closest('button.lucky'); if (!b || b.disabled) return;

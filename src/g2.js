@@ -2,10 +2,10 @@ const PHRASE = { brush: 'Brush your teeth.', candy: 'Eat candy.', dentist: 'Go t
 const say = (k) => PHRASE[k.slice(0, -1)];
 const QS = [
   { t: 'dentistB', o: ['brushB', 'candyB', 'dentistB', 'pencilB'] }, // teacher's model question
-  { t: 'dentistA', o: ['candyA', 'dentistA', 'pencilA', 'brushA'] },
   { t: 'candyA', o: ['brushA', 'pencilA', 'candyA', 'dentistA'] },
   { t: 'pencilA', o: ['pencilA', 'brushA', 'dentistA', 'candyA'] },
   { t: 'brushA', o: ['dentistA', 'candyA', 'brushA', 'pencilA'] },
+  { t: 'dentistA', o: ['candyA', 'dentistA', 'pencilA', 'brushA'] },
 ];
 let q = 0, locked = false, voice = null;
 turn = -1;
