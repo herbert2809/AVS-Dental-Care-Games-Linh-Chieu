@@ -245,7 +245,8 @@ const who = (i) => (i < 0 ? TEACHER : TEAMS[i]);
 // Points are kept by the teacher on the board, so the games show no scores.
 function setTurn(i) { turn = i < 0 ? -1 : i % 4; document.dispatchEvent(new CustomEvent('turn')); }
 function nextTurn() { setTurn(turn < 0 ? 0 : turn + 1); }
-function turnChip() { const t = who(turn); return `<span class="turn" style="--c:${t.color}">${turn < 0 ? 'Teacher' : t.name + ' Team'}</span>`; }
+// Classes use groups 1-4 with no team names, so only the teacher's model turn shows a label.
+function turnChip() { return turn < 0 ? `<span class="turn" style="--c:${TEACHER.color}">Teacher</span>` : ''; }
 
 let AC;
 function tone(freq, dur, type, when, gain) {

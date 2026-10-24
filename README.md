@@ -1,7 +1,7 @@
 # Dental Care Games – Linh Chieu Open House
 
 Classroom games for the AVS Open House lesson "Unit 5: Dental Care" (Amazing Science 1, Grade 1).
-The games are made for one shared screen and four teams: Red, Blue, Green and Yellow.
+The games are made for one shared screen and four groups (Group 1-4, as in class). The games show no team names; the teacher keeps points on the board.
 This version follows the feedback of 20/10/2026: no on-screen scores (the teacher keeps points on the board), and the teacher models the first turn of Games 1, 2, 4 and 5.
 
 ## Games

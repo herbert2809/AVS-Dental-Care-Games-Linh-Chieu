@@ -86,7 +86,11 @@ a.btn{color:var(--ink);text-decoration:none;display:inline-block}
 .hint b{color:var(--sun);-webkit-text-stroke:.15vmin var(--ink);letter-spacing:.2em}
 .lucky.open .in{position:absolute;left:24%;top:16%;width:52%;height:52%}
 .lucky.open .tag{position:absolute;left:50%;bottom:-1vmin;transform:translateX(-50%);white-space:nowrap}
-.pic{width:min(40vmin,56%);aspect-ratio:1;background:#fff;border:.6vmin solid var(--ink);border-radius:4vmin;padding:1.5vmin}
+.qpanel{flex-direction:row;gap:4vmin;width:min(100%,165vmin);padding:3vmin}
+.qpanel .pic{flex:none;width:min(66vmin,52%);aspect-ratio:1;background:#fff;border:.6vmin solid var(--ink);border-radius:4vmin;padding:1.5vmin}
+.qtext{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3vmin}
+.qpanel .hint{font-size:clamp(22px,5vmin,64px)}
+.qpanel #line{font-size:clamp(22px,5vmin,64px);min-height:2.4em}
 .row{display:flex;gap:2.4vmin;align-items:center;justify-content:center;flex-wrap:wrap}
 
 </style>
@@ -102,14 +106,16 @@ a.btn{color:var(--ink);text-decoration:none;display:inline-block}
   <div class="head"><span class="phrase">Choose a tooth</span><span id="who"></span></div>
   <div class="teeth" id="teeth"></div>
 </div>
-<div class="over hidden" id="qv"><div class="panel card">
-  <div id="who2"></div>
+<div class="over hidden" id="qv"><div class="panel card qpanel">
   <div class="pic" id="pic"></div>
+  <div class="qtext">
+  <div id="who2"></div>
   <div class="hint" id="hint"></div>
   <div class="phrase" id="line">&nbsp;</div>
   <div class="row">
     <button class="btn small" id="show">Show the sentence</button>
     <button class="btn go" id="give">Well done!</button>
+  </div>
   </div>
 </div></div>
 
@@ -268,7 +274,8 @@ const who = (i) => (i < 0 ? TEACHER : TEAMS[i]);
 // Points are kept by the teacher on the board, so the games show no scores.
 function setTurn(i) { turn = i < 0 ? -1 : i % 4; document.dispatchEvent(new CustomEvent('turn')); }
 function nextTurn() { setTurn(turn < 0 ? 0 : turn + 1); }
-function turnChip() { const t = who(turn); return `<span class="turn" style="--c:${t.color}">${turn < 0 ? 'Teacher' : t.name + ' Team'}</span>`; }
+// Classes use groups 1-4 with no team names, so only the teacher's model turn shows a label.
+function turnChip() { return turn < 0 ? `<span class="turn" style="--c:${TEACHER.color}">Teacher</span>` : ''; }
 
 let AC;
 function tone(freq, dur, type, when, gain) {
@@ -327,7 +334,7 @@ function draw() {
   $('#teeth').innerHTML = keys.map((k, i) => (opened[i] === null
     ? `<button class="lucky ${i === 0 ? 'teach' : ''}" data-i="${i}" aria-label="Tooth ${i === 0 ? 'T' : i}" ${(turn < 0) !== (i === 0) ? 'disabled' : ''}><svg class="art" viewBox="0 0 200 200">${toothShape(TINT[i])}</svg><span class="num">${i === 0 ? 'T' : i}</span></button>`
     : `<div class="lucky open"><svg class="art" viewBox="0 0 200 200">${toothShape('#FFFFFF')}</svg><span class="in">${art(k)}</span>
-       <span class="turn tag" style="--c:${who(opened[i]).color}">${who(opened[i]).name}</span></div>`)).join('');
+       ${opened[i] < 0 ? '<span class="turn tag" style="--c:var(--ink)">Teacher</span>' : ''}</div>`)).join('');
 }
 $('#teeth').addEventListener('click', (e) => {
   const b = e.target.closest('button.lucky'); if (!b || b.disabled) return;
